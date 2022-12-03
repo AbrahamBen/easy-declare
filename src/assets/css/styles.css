@@ -11396,7 +11396,7 @@ p {
   }
   #mainNav.navbar-shrink .navbar-brand svg,
 #mainNav.navbar-shrink .navbar-brand img {
-    height: 1.5rem;
+    height: 3.5rem;
   }
   #mainNav .navbar-nav .nav-item {
     margin-right: 1rem;
@@ -11410,7 +11410,7 @@ header.masthead {
   padding-bottom: 6rem;
   text-align: center;
   color: #fff;
-  background-image: url("../images/header-bg.jpg");
+  background-image: url("../images/back/Back.jpg");
   background-repeat: no-repeat;
   background-attachment: scroll;
   background-position: center center;
