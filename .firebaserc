@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "easy-declare-f41ca": {
+      "hosting": {
+        "easy-declare": [
+          "easy-declare-f41ca"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "easy-declare-f41ca"
+  }
+}

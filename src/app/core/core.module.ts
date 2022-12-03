@@ -11,6 +11,7 @@ import { ContactComponent } from './layouts/components/contact/contact.component
 import { FooterComponent } from './layouts/components/footer/footer.component';
 import { ModalsComponent } from './layouts/components/modals/modals.component';
 import { PartnerComponent } from './layouts/components/partner/partner.component';
+import {RouterLinkWithHref} from "@angular/router";
 
 
 
@@ -28,11 +29,14 @@ import { PartnerComponent } from './layouts/components/partner/partner.component
         ModalsComponent,
         PartnerComponent
     ],
-    exports: [
-        LayoutsComponent
-    ],
+  exports: [
+    LayoutsComponent,
+    HeaderComponent,
+    NavBarComponent
+  ],
     imports: [
-        CommonModule
+        CommonModule,
+        RouterLinkWithHref
     ]
 })
 export class CoreModule { }
