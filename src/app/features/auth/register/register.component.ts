@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AngularFireAuth} from "@angular/fire/compat/auth";
 import {AngularFirestore} from "@angular/fire/compat/firestore";
-import {throwError} from "rxjs";
+import {Subscription, throwError} from "rxjs";
 import {ErrorService} from "../../../shared/services/error.service";
 
 @Component({
@@ -11,8 +11,9 @@ import {ErrorService} from "../../../shared/services/error.service";
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit,OnDestroy {
 
+  subscriptions:Subscription[]= [];
   form: FormGroup;
   error: string;
   isLoading: boolean = false;
@@ -45,7 +46,7 @@ export class RegisterComponent implements OnInit {
 
 
   //For registering user
-  onRegister() {
+  public onRegister() {
     this.isLoading = true;
     if (this.form.valid) {
       const { email, password } = this.form.value;
@@ -76,6 +77,10 @@ export class RegisterComponent implements OnInit {
   //Go back home
   goBack() {
     this.router.navigate(['']).then();
+  }
+
+  ngOnDestroy() {
+    //this.subscriptions.forEach(el=>el.unsubscribe());
   }
 
 }
