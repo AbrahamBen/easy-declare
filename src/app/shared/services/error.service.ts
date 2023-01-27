@@ -22,7 +22,7 @@ export class ErrorService {
     } else if (error.code === 'auth/invalid-email') {
       errorMessage = 'Adresse email non valide';
     } else {
-      errorMessage = error.message;
+      errorMessage = 'Erreur inconnue, veuillez réessayer plus tard.';
     }
     //return throwError(errorMessage);
     return errorMessage;
