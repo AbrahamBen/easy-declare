@@ -5,28 +5,93 @@
         <div class="card border-0 shadow rounded-3 my-3">
           <div class="card-body p-4 p-sm-5">
             <h5 class="card-title text-center mb-2 fw-light fs-5">Créer un compte</h5>
-            <form>
+            <!--Display error message-->
+            <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+            <form [formGroup]="form" (ngSubmit)="onRegister()">
+              <!--FullName-->
               <div class="form-floating mb-3">
-                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                <input type="text"
+                       class="form-control"
+                       id="floatingFullNameInput"
+                       formControlName="fullName"
+                       placeholder="Votre nom complet">
+                <div *ngIf="form.get('fullName').touched &&
+                            form.get('fullName').hasError('required')"
+                            class="text-danger">Le nom complet est requis
+                </div>
+                <label for="floatingInput">Votre nom complet</label>
+              </div>
+              <!--Email-->
+              <div class="form-floating mb-3">
+                <input type="email"
+                       class="form-control"
+                       id="floatingInput"
+                       formControlName="email"
+                       placeholder="ben@easy-declare.com">
+                <!--Check if exists-->
+                <div *ngIf="form.get('email').touched &&
+                      form.get('email').hasError('required')"
+                     class="text-danger">L'Email est requis
+                </div>
+
+                <!--Check if invalid-->
+                <div *ngIf="form.get('email').touched &&
+                form.get('email').hasError('email')"
+                     class="text-danger">Votre Email est invalide
+                </div>
+
                 <label for="floatingInput">Adresse e-mail</label>
               </div>
+              <!--Password-->
               <div class="form-floating mb-3">
-                <input type="password" class="form-control" id="floatingPassword" placeholder="Saisir le mot de passe">
+                <input type="password"
+                       class="form-control"
+                       id="floatingPassword"
+                       formControlName="password"
+                       placeholder="Saisir le mot de passe">
+                <!--Check if password exists-->
+                <div *ngIf="form.get('password').touched &&
+                form.get('password').hasError('required')"
+                     class="text-danger">Le mot de passe est requis
+                </div>
+                <!--Check if password is correct-->
+                <div *ngIf="form.get('password').touched
+                && form.get('password').hasError('minlength')"
+                     class="text-danger">Le mot de passe doit contenir aumoins (six) 6 caractères
+                </div>
                 <label for="floatingPassword">Mot de passe</label>
               </div>
-
+              <!--Confirm Password-->
               <div class="form-floating mb-3">
-                <input type="password" class="form-control" id="floatingConfirmPassword" placeholder="Confirmez le mot de passe">
+                <input type="password"
+                       class="form-control"
+                       id="floatingConfirmPassword"
+                       formControlName="confirmPassword"
+                       placeholder="Confirmez le mot de passe">
+                <div *ngIf="form.get('confirmPassword').touched &&
+                form.get('confirmPassword').hasError('required')"
+                     class="text-danger">Confirmation de mot de passe est requis
+                </div>
+                <div *ngIf="form.hasError('notSame')"
+                     class="text-danger">Les mots de passe ne correspondent pas
+                </div>
                 <label for="floatingPassword">Confirmer le mot de passe</label>
               </div>
               <div class="d-grid">
-                <button class="btn btn-primary btn-login text-uppercase fw-bold" type="submit">
+                <div *ngIf="isLoading" class="d-flex justify-content-center">
+                  <div class="spinner-border" role="status">
+                    <span class="sr-only">Chargement...</span>
+                  </div>
+                </div>
+                <button *ngIf="!isLoading"
+                        class="btn btn-primary btn-login text-uppercase fw-bold"
+                        type="submit">
                   <i class="fa-solid fa-envelope me-2"></i>
-                  Créer
+                  Créer maintenant
                 </button>
               </div>
               <hr class="my-4">
-              <div class="d-grid mb-2">
+              <!--<div class="d-grid mb-2">
                 <button class="btn btn-google btn-login text-uppercase fw-bold" type="submit">
                   <i class="fab fa-google me-2"></i>
                   Créer avec Google
@@ -37,8 +102,7 @@
                   <i class="fab fa-facebook-f me-2"></i>
                   Créer avec Facebook
                 </button>
-              </div>
-              <br>
+              </div>-->
               <p>
                 J'ai  déjà un compte ?
                 <a [routerLink]="['/login']">Connexion</a>

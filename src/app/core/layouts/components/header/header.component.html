@@ -1,6 +1,8 @@
 <header class="masthead">
   <div class="container">
-    <div class="masthead-subheading">BIENVENUE</div>
+    <div class="masthead-subheading">
+      BIENVENUE <span *ngIf="userName">{{userName.split(' ')[0]}}</span>
+    </div>
     <div class="masthead-heading text-uppercase">SUR EASY-DECLARE</div>
     <a class="btn btn-primary btn-xl text-uppercase" href="#services">En savoir plus</a>
   </div>
