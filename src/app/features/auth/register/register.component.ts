@@ -63,6 +63,7 @@ export class RegisterComponent implements OnInit,OnDestroy {
       })
         .catch(err => {
           this.error = this.errorService.handleError(err);
+          this.isLoading = false
         })
         .finally(() => {
           this.isLoading = false;
