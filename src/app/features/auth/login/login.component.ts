@@ -44,10 +44,12 @@ export class LoginComponent implements OnInit,OnDestroy {
     this.subscriptions.push(this.afs.doc(`users/${userId}`).valueChanges()
       .subscribe(user => {
         // @ts-ignore
-        console.log(user.fullName);
+        //console.log(user.fullName);
+        //console.log('Hello just for dumping');
         // @ts-ignore
         localStorage.setItem('fullName', user.fullName);
         localStorage.setItem('userSate', 'connected');
+        this.router.navigate(['']).then();
       }));
   }
 
@@ -58,9 +60,10 @@ export class LoginComponent implements OnInit,OnDestroy {
 
     this.afAuth.signInWithEmailAndPassword(email, password)
       .then(credential => {
-        console.log(credential.user.uid);
+        //console.log(credential.user.uid);
         this.getFullName(credential.user.uid);
-        this.router.navigate(['']).then();
+        //console.log('Hello just for dumping in onLoging methods');
+        //this.router.navigate(['']).then();
       })
       .catch(error => {
         this.errorMessage = this.errorService.handleError(error);
