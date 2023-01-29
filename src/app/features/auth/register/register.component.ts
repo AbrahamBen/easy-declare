@@ -57,7 +57,7 @@ export class RegisterComponent implements OnInit,OnDestroy {
             userID:user.uid,
             fullName: this.form.value.fullName,
             email: this.form.value.email,
-            registeredDate:Date.now(),
+            registeredDate:new Date(),
           }).then(()=> this.router.navigate(['']).then());
         });
       })

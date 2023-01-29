@@ -11,30 +11,81 @@
     <!-- To make this form functional, sign up at-->
     <!-- https://startbootstrap.com/solution/contact-forms-->
     <!-- to get an API token!-->
-    <form id="contactForm" data-sb-form-api-token="API_TOKEN">
+    <form id="contactForm" data-sb-form-api-token="API_TOKEN" [formGroup]="contactForm" (ngSubmit)="onSubmit()">
       <div class="row align-items-stretch mb-5">
         <div class="col-md-6">
           <div class="form-group">
             <!-- Name input-->
-            <input class="form-control" id="name" type="text" placeholder="Your Name *" data-sb-validations="required" />
+            <input class="form-control"
+                   id="name" type="text"
+                   placeholder="Votre nom *"
+                   formControlName="name"
+                   data-sb-validations="required" />
+            <div *ngIf="contactForm.get('name').hasError('required') && contactForm.get('name').touched" class="form-error">
+              Le nom est obligatoire.
+            </div>
             <div class="invalid-feedback" data-sb-feedback="name:required">A name is required.</div>
           </div>
           <div class="form-group">
             <!-- Email address input-->
-            <input class="form-control" id="email" type="email" placeholder="Your Email *" data-sb-validations="required,email" />
+            <input class="form-control"
+                   id="email" type="email"
+                   placeholder="Votre Email *"
+                   formControlName="email"
+                   data-sb-validations="required,email" />
+            <div *ngIf="contactForm.get('email').hasError('required') && contactForm.get('email').touched" class="form-error">
+              L'email est obligatoire.
+            </div>
+            <div *ngIf="contactForm.get('email').hasError('email') && contactForm.get('email').touched" class="form-error">
+              L'email doit être valide.
+            </div>
             <div class="invalid-feedback" data-sb-feedback="email:required">An email is required.</div>
             <div class="invalid-feedback" data-sb-feedback="email:email">Email is not valid.</div>
           </div>
           <div class="form-group mb-md-0">
             <!-- Phone number input-->
-            <input class="form-control" id="phone" type="tel" placeholder="Your Phone *" data-sb-validations="required" />
-            <div class="invalid-feedback" data-sb-feedback="phone:required">A phone number is required.</div>
+            <input
+              class="form-control" id="phone"
+              type="tel" placeholder="Votre numéro de téléphone *"
+              formControlName="phone"
+              [ngClass]="{ 'is-invalid': contactForm.get('phone').touched &&
+              contactForm.get('phone').hasError('required') }" maxlength="15"
+              data-sb-validations="required" />
+
+            <div class="invalid-feedback"
+                 *ngIf="contactForm.get('phone').hasError('required') &&
+                 contactForm.get('phone').touched" class="form-error">
+              Le téléphone est obligatoire.
+            </div>
+            <div  class="invalid-feedback"
+                  *ngIf="contactForm.get('phone').hasError('minlength')
+                 && contactForm.get('phone').touched" class="form-error">
+              Le numéro de téléphone doit comporter au moins 09 chiffres.
+            </div>
+            <div *ngIf="contactForm.get('phone').hasError('maxlength') &&
+                  contactForm.get('phone').touched" class="form-error">
+              Le numéro de téléphone ne peut pas dépasser 15 chiffres.
+            </div>
+            <div *ngIf="contactForm.get('phone').hasError('pattern') &&
+                contactForm.get('phone').touched" class="form-error">
+              Le numéro de téléphone doit commencer par un préfixe valide (exemple: +242, +243, +33, +1, etc.)
+            </div>
+
+            <div class="invalid-feedback" data-sb-feedback="phone:required">Le téléphone est obligatoire.</div>
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-group form-group-textarea mb-md-0">
             <!-- Message input-->
-            <textarea class="form-control" id="message" placeholder="Your Message *" data-sb-validations="required"></textarea>
+            <textarea class="form-control"
+                      formControlName="message"
+                      id="message" placeholder="Ecrivez votre message ici *"
+                      data-sb-validations="required" >
+            </textarea>
+            <div class="invalid-feedback form-error" *ngIf="contactForm.get('message').hasError('required') &&
+                        contactForm.get('message').touched">
+              Le contenu du message est obligatoire
+            </div>
             <div class="invalid-feedback" data-sb-feedback="message:required">A message is required.</div>
           </div>
         </div>
@@ -43,21 +94,29 @@
       <!---->
       <!-- This is what your users will see when the form-->
       <!-- has successfully submitted-->
-      <div class="d-none" id="submitSuccessMessage">
+      <div *ngIf="formSuccess" id="submitSuccessMessage">
         <div class="text-center text-white mb-3">
-          <div class="fw-bolder">Form submission successful!</div>
-          To activate this form, sign up at
-          <br />
-          <a href="https://startbootstrap.com/solution/contact-forms">https://startbootstrap.com/solution/contact-forms</a>
+          <div class="fw-bolder">
+            {{formSuccess}}
+          </div>
+
         </div>
       </div>
       <!-- Submit error message-->
       <!---->
       <!-- This is what your users will see when there is-->
       <!-- an error submitting the form-->
-      <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error sending message!</div></div>
+      <div *ngIf="formError"  id="submitErrorMessage">
+        <div class="text-center text-danger mb-3">
+        {{formError}}
+        </div>
+      </div>
       <!-- Submit Button-->
-      <div class="text-center"><button class="btn btn-primary btn-xl text-uppercase disabled" id="submitButton" type="submit">Soumettre</button></div>
+      <div class="text-center">
+        <button class="btn btn-primary btn-xl text-uppercase" id="submitButton" type="submit">
+          Soumettre
+        </button>
+      </div>
     </form>
   </div>
 </section>

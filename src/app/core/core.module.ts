@@ -12,6 +12,7 @@ import { FooterComponent } from './layouts/components/footer/footer.component';
 import { ModalsComponent } from './layouts/components/modals/modals.component';
 import { PartnerComponent } from './layouts/components/partner/partner.component';
 import {RouterLinkWithHref} from "@angular/router";
+import {ReactiveFormsModule} from "@angular/forms";
 
 
 
@@ -34,9 +35,10 @@ import {RouterLinkWithHref} from "@angular/router";
     HeaderComponent,
     NavBarComponent
   ],
-    imports: [
-        CommonModule,
-        RouterLinkWithHref
-    ]
+  imports: [
+    CommonModule,
+    RouterLinkWithHref,
+    ReactiveFormsModule
+  ]
 })
 export class CoreModule { }
